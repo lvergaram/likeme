@@ -41,11 +41,7 @@ const create = async(req,res) => {
 const update = async(req,res) => {
   try {
     const {id} = req.params
-    if (!req.body.titulo || !req.body.artista, !req.body.tono){
-      return res.status(400).json({ok:false, msg:'se requiere titulo,artista y tono'})
-    }
-    const updateSong = req.body
-    const response = await postModel.update(id,updateSong)
+    const response = await postModel.update(id)
     res.json(response)
   } catch (error) {
     console.log(error)
@@ -56,7 +52,6 @@ const update = async(req,res) => {
 const remove = async(req,res) => {
   try {
     const {id} = req.params
-
     const response = await postModel.remove(id)
     res.json(response)
   } catch (error) {

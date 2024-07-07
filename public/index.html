@@ -96,7 +96,8 @@
   });
 
   async function getPosts() {
-    const { data } = await axios.get("/posts");
+    let { data } = await axios.get("/posts");
+    data = data.sort((a, b) => b.likes - a.likes)
     $(".posts").html("");
     $.each(data, (i, u) => {
       $(".posts").append(`

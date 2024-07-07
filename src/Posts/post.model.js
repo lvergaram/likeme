@@ -49,20 +49,17 @@ const create = async(newRegister) => {
   }
 } 
 
-const update = async(id, updateSong) => {
+const update = async(id) => {
   try {
-    const {titulo,artista,tono} = updateSong
     const query = {
       text:`
-        UPDATE CANCIONES
+        UPDATE POSTS
         SET 
-          titulo = $2,
-          artista = $3,
-          tono = $4
+        LIKES = LIKES + 1
         WHERE id = $1
         RETURNING *
       `,
-      values:[id, titulo,artista,tono]
+      values:[id]
     }
     const {rows:response} = await ddbb.query(query)
     return response[0]
@@ -75,7 +72,7 @@ const remove = async(id) => {
   try {
     const query = {
       text:`
-        DELETE FROM CANCIONES
+        DELETE FROM POSTS
         WHERE ID = $1
         RETURNING *
       `,
